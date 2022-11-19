@@ -516,7 +516,7 @@ class ACEModel(tf.keras.Model):
 
     def _instance_autoregressive_sample(self, t):
         x_o, observed_mask, num_samples, num_resampling_samples, use_proposal = t
-        u_inds = tf.where((1.0 - observed_mask) == 1)[:, 0]
+        u_inds = tf.where((1 - observed_mask) == 1)[:, 0]
         u_inds = tf.random.shuffle(u_inds)
         u_inds = tf.cast(u_inds, tf.int32)
 
