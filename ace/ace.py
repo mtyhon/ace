@@ -540,7 +540,7 @@ class ACEModel(tf.keras.Model):
             )
 
 
-            curr_x_o = tf.tensor_scatter_nd_update(curr_x_o, update_inds, dim_samples)
+            curr_x_o = tf.tensor_scatter_nd_update(curr_x_o, update_inds, tf.cast(dim_samples, tf.double))
             curr_observed_mask = tf.tensor_scatter_nd_update(
                 curr_observed_mask, update_inds, tf.ones_like(dim_samples)
             )
