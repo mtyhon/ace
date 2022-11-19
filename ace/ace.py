@@ -520,7 +520,7 @@ class ACEModel(tf.keras.Model):
         u_inds = tf.random.shuffle(u_inds)
         u_inds = tf.cast(u_inds, tf.int32)
 
-        x_o = x_o * observed_mask
+        x_o = x_o * tf.cast(observed_mask, tf.double)
         curr_x_o = tf.tile(x_o[tf.newaxis, ...], [num_samples, 1])
         curr_observed_mask = tf.tile(observed_mask[tf.newaxis, ...], [num_samples, 1])
 
