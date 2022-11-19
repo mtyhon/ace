@@ -527,16 +527,19 @@ class ACEModel(tf.keras.Model):
         for j in u_inds:
             if use_proposal:
                 dim_samples = self._dim_proposal_sample(curr_x_o, curr_observed_mask, j)
+                dim_samples = tf.cast(dim_samples, tf.int64)
+                
             else:
                 dim_samples = self._dim_energy_sample(
                     curr_x_o, curr_observed_mask, j, num_resampling_samples
                 )
+                dim_samples = tf.cast(dim_samples, tf.int64)
 
             update_inds = tf.stack(
                 [tf.range(num_samples), tf.repeat(j, num_samples)], axis=1
             )
 
-            dim_samples = tf.cast(dim_samples, tf.int64)
+
             curr_x_o = tf.tensor_scatter_nd_update(curr_x_o, update_inds, dim_samples)
             curr_observed_mask = tf.tensor_scatter_nd_update(
                 curr_observed_mask, update_inds, tf.ones_like(dim_samples)
